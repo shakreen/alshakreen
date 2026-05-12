@@ -407,6 +407,243 @@
 
     }
 
+    /* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+/* شاشات اللابتوب الصغيرة */
+
+@media(max-width:1200px){
+
+  .hero-content{
+    width:70%;
+    padding:60px 40px 60px 0;
+  }
+
+  .cards,
+  .projects-grid,
+  .values-grid,
+  .services-grid{
+    gap:20px;
+  }
+
+}
+
+/* التابلت */
+
+@media(max-width:992px){
+
+  /* إخفاء القائمة */
+
+  nav{
+    display:none;
+  }
+
+  /* الهيدر */
+
+  .navbar{
+    justify-content:center;
+  }
+
+  .logo img{
+    width:220px;
+    height:120px;
+  }
+
+  /* الهيرو */
+
+  .hero{
+    min-height:auto;
+    padding:120px 0 90px;
+  }
+
+  .hero-content{
+    width:100%;
+    padding:0;
+    text-align:center;
+  }
+
+  .hero h2{
+    font-size:42px;
+  }
+
+  .hero p{
+    max-width:100%;
+  }
+
+  .features{
+    grid-template-columns:1fr 1fr;
+    display:grid;
+    gap:20px;
+  }
+
+  .feature{
+    border:none;
+    padding:0;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  /* الإحصائيات */
+
+  .stats-box{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  /* جميع الكروت */
+
+  .cards,
+  .projects-grid,
+  .values-grid,
+  .services-grid,
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .second-row{
+    width:100%;
+  }
+
+}
+
+/* الجوال */
+
+@media(max-width:768px){
+
+  .container{
+    width:94%;
+  }
+
+  /* الشعار */
+
+  .logo img{
+    width:180px;
+    height:100px;
+  }
+
+  /* النصوص */
+
+  .hero h2{
+    font-size:32px;
+    line-height:1.5;
+  }
+
+  .hero p{
+    font-size:15px;
+    line-height:2;
+  }
+
+  .section-title span{
+    font-size:20px;
+  }
+
+  .section-title h2{
+    font-size:30px;
+  }
+
+  .card-content h3,
+  .value-card h3{
+    font-size:22px;
+  }
+
+  /* الأزرار */
+
+  .hero-buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .btn-primary,
+  .btn-secondary{
+    width:100%;
+  }
+
+  .contact-btn{
+    display:none;
+  }
+
+  /* الإحصائيات */
+
+  .stats{
+    margin-top:40px;
+  }
+
+  .stats-box{
+    grid-template-columns:1fr;
+    padding:20px;
+  }
+
+  .stat:not(:last-child)::after{
+    display:none;
+  }
+
+  .stat{
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(212,164,74,.15);
+  }
+
+  .stat:last-child{
+    border:none;
+    padding-bottom:0;
+  }
+
+  /* الصور */
+
+  .card img,
+  .project img,
+  .about-image img{
+    height:220px;
+  }
+
+  /* الكروت */
+
+  .card,
+  .value-card,
+  .about-card{
+    border-radius:20px;
+  }
+
+  .card-content,
+  .value-card,
+  .about-card{
+    padding:25px;
+  }
+
+  /* الواتساب */
+
+  .whatsapp-btn{
+    width:55px;
+    height:55px;
+    font-size:24px;
+    left:15px;
+    bottom:15px;
+  }
+
+}
+
+/* الجوالات الصغيرة */
+
+@media(max-width:480px){
+
+  .hero h2{
+    font-size:28px;
+  }
+
+  .section-title h2{
+    font-size:26px;
+  }
+
+  .hero p,
+  .card-content p,
+  .value-card p,
+  .about-card p{
+    font-size:14px;
+  }
+
+}
+
   </style>
 
 </head>
