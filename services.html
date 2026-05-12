@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
 <meta charset="UTF-8">
@@ -18,19 +19,31 @@
   font-family:'Cairo',sans-serif;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   background:#020202;
   color:#fff;
   overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 
 a{
   text-decoration:none;
   color:inherit;
+  touch-action:manipulation;
+}
+
+img{
+  max-width:100%;
+  display:block;
 }
 
 .container{
   width:92%;
+  max-width:1450px;
   margin:auto;
 }
 
@@ -40,7 +53,8 @@ header{
   border-bottom:1px solid rgba(212,164,74,.35);
   position:sticky;
   top:0;
-  z-index:100;
+  z-index:9999;
+  backdrop-filter:blur(10px);
 }
 
 .navbar{
@@ -48,12 +62,13 @@ header{
   align-items:center;
   justify-content:space-between;
   padding:18px 0;
+  gap:20px;
 }
 
 .logo{
   display:flex;
   align-items:center;
-  flex-direction:column;
+  flex-shrink:0;
 }
 
 .logo img{
@@ -62,11 +77,32 @@ header{
   object-fit:contain;
 }
 
+/* زر القائمة */
+
+.menu-toggle{
+  display:none;
+  font-size:34px;
+  color:#d4a44a;
+  cursor:pointer;
+  user-select:none;
+}
+
+nav{
+  transition:.4s ease;
+}
+
 nav ul{
   list-style:none;
   display:flex;
   align-items:center;
   gap:40px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+
+nav ul::-webkit-scrollbar{
+  display:none;
 }
 
 nav ul li a{
@@ -75,6 +111,7 @@ nav ul li a{
   font-weight:600;
   transition:.3s;
   position:relative;
+  white-space:nowrap;
 }
 
 nav ul li a:hover,
@@ -100,6 +137,7 @@ nav ul li a.active::after{
   border-radius:14px;
   font-size:17px;
   transition:.3s;
+  white-space:nowrap;
 }
 
 .contact-btn:hover{
@@ -180,7 +218,8 @@ nav ul li a.active::after{
 
 .services-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,1fr));
   gap:30px;
 }
 
@@ -321,6 +360,23 @@ nav ul li a.active::after{
   color:#000;
 }
 
+.whatsapp-btn{
+  position:fixed;
+  left:25px;
+  bottom:25px;
+  width:60px;
+  height:60px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:28px;
+  z-index:999;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
 footer{
   border-top:1px solid rgba(212,164,74,.2);
   padding:40px 0;
@@ -329,19 +385,56 @@ footer{
   background:#050505;
 }
 
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+  .hero-content{
+    width:70%;
+    padding:60px 40px 60px 0;
+  }
+
+}
+
 @media(max-width:992px){
 
+  .menu-toggle{
+    display:block;
+  }
+
+  .navbar{
+    flex-wrap:wrap;
+    justify-content:space-between;
+  }
+
   nav{
+    width:100%;
+    max-height:0;
+    overflow:hidden;
+  }
+
+  nav.active{
+    max-height:500px;
+  }
+
+  nav ul{
+    flex-direction:column;
+    gap:20px;
+    width:100%;
+    text-align:center;
+    padding-top:20px;
+  }
+
+  .contact-btn{
     display:none;
   }
 
   .hero-content{
     width:100%;
     padding:60px 0;
-  }
-
-  .services-grid{
-    grid-template-columns:1fr;
+    text-align:center;
   }
 
   .hero h2,
@@ -353,14 +446,18 @@ footer{
 
 @media(max-width:768px){
 
+  .container{
+    width:94%;
+  }
+
   .hero{
     min-height:auto;
     padding:120px 0 80px;
   }
 
   .logo img{
-    width:220px;
-    height:120px;
+    width:190px;
+    height:100px;
   }
 
   .hero h2{
@@ -387,6 +484,31 @@ footer{
     font-size:28px;
   }
 
+  .whatsapp-btn{
+    width:55px;
+    height:55px;
+    font-size:24px;
+    left:15px;
+    bottom:15px;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .hero h2{
+    font-size:28px;
+  }
+
+  .section-title h2{
+    font-size:26px;
+  }
+
+  .hero p,
+  .service-content p{
+    font-size:14px;
+  }
+
 }
 
 </style>
@@ -403,7 +525,11 @@ footer{
       <img src="images/logo.png" alt="logo">
     </div>
 
-    <nav>
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+
+    <nav id="nav-menu">
 
       <ul>
 
@@ -579,6 +705,14 @@ footer{
 
 </footer>
 
+<!-- زر واتساب -->
+
+<a href="https://wa.me/966508771110"
+class="whatsapp-btn"
+target="_blank">
+💬
+</a>
+
 <!-- نافذة خيارات التواصل -->
 
 <div class="contact-popup" id="contactPopup">
@@ -627,6 +761,22 @@ footer{
 </div>
 
 <script>
+
+/* القائمة */
+
+const menuToggle =
+document.getElementById("menu-toggle");
+
+const navMenu =
+document.getElementById("nav-menu");
+
+menuToggle.onclick = () => {
+
+  navMenu.classList.toggle("active");
+
+};
+
+/* نافذة التواصل */
 
 function openContactOptions(){
 
