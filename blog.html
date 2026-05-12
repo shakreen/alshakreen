@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>المدونة | الشاكرين للمصاعد</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Cairo',sans-serif;
+}
+
+body{
+  background:#020202;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:92%;
+  margin:auto;
+}
+
+header{
+  width:100%;
+  background:rgba(0,0,0,.98);
+  border-bottom:1px solid rgba(212,164,74,.35);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+
+.logo img{
+  width:300px;
+  height:150px;
+  object-fit:contain;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:40px;
+}
+
+nav ul li a{
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+  transition:.3s;
+  position:relative;
+}
+
+nav ul li a:hover,
+nav ul li a.active{
+  color:#d4a44a;
+}
+
+nav ul li a.active::after{
+  content:'';
+  position:absolute;
+  bottom:-12px;
+  right:0;
+  width:100%;
+  height:2px;
+  background:#d4a44a;
+  border-radius:10px;
+}
+
+.contact-btn{
+  border:1px solid #2a2a2a;
+  color:#d4a44a;
+  padding:12px 28px;
+  border-radius:14px;
+  font-size:17px;
+  transition:.3s;
+}
+
+.contact-btn:hover{
+  background:#d4a44a;
+  color:#000;
+}
+
+.hero{
+  min-height:80vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+
+  background:
+  linear-gradient(to left, rgba(0,0,0,.95) 35%, rgba(0,0,0,.65)),
+  url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1800&auto=format&fit=crop')
+  center/cover no-repeat;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+  radial-gradient(circle at center,
+  rgba(212,164,74,.08),
+  transparent 60%);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  width:50%;
+  margin-left:auto;
+  text-align:right;
+  padding:60px 120px 60px 0;
+}
+
+.hero h2{
+  font-size:52px;
+  line-height:1.4;
+  margin-bottom:25px;
+  font-weight:800;
+}
+
+.hero h2 span{
+  color:#d4a44a;
+}
+
+.hero p{
+  color:#ddd;
+  font-size:14px;
+  line-height:2;
+  max-width:700px;
+}
+
+.blog{
+  padding:120px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.section-title span{
+  color:#d4a44a;
+  font-size:24px;
+  font-weight:700;
+}
+
+.section-title h2{
+  font-size:42px;
+  margin-top:10px;
+  font-weight:800;
+}
+
+.blog-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.blog-card{
+  background:linear-gradient(
+  180deg,
+  rgba(18,18,18,1),
+  rgba(8,8,8,1));
+
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(212,164,74,.18);
+  transition:.4s;
+}
+
+.blog-card:hover{
+  transform:translateY(-10px);
+  border-color:#d4a44a;
+  box-shadow:0 20px 50px rgba(212,164,74,.15);
+}
+
+.blog-card img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+
+.blog-content{
+  padding:30px;
+}
+
+.blog-date{
+  color:#999;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.blog-content h3{
+  color:#d4a44a;
+  font-size:25px;
+  margin-bottom:15px;
+  line-height:1.6;
+}
+
+.blog-content p{
+  color:#ccc;
+  line-height:2;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.read-more{
+  color:#d4a44a;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.article-page{
+  position:fixed;
+  inset:0;
+  background:#020202;
+  z-index:99999;
+  overflow-y:auto;
+  display:none;
+}
+
+.article-header{
+  position:relative;
+}
+
+.article-header img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+}
+
+.article-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,.2));
+  display:flex;
+  align-items:flex-end;
+  padding:60px;
+}
+
+.article-overlay h1{
+  color:#fff;
+  font-size:52px;
+  max-width:900px;
+  line-height:1.5;
+}
+
+.article-body{
+  max-width:1000px;
+  margin:auto;
+  padding:70px 30px;
+}
+
+.article-body p{
+  color:#ccc;
+  line-height:2.5;
+  font-size:18px;
+  margin-bottom:35px;
+}
+
+.close-article{
+  position:fixed;
+  top:30px;
+  left:30px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  border:none;
+  background:#d4a44a;
+  color:#000;
+  font-size:26px;
+  cursor:pointer;
+  z-index:999999;
+  transition:.3s;
+}
+
+.close-article:hover{
+  transform:scale(1.1);
+}
+
+footer{
+  border-top:1px solid rgba(212,164,74,.2);
+  padding:40px 0;
+  text-align:center;
+  color:#999;
+  background:#050505;
+}
+
+@media(max-width:992px){
+
+  nav{
+    display:none;
+  }
+
+  .hero-content{
+    width:100%;
+    padding:60px 0;
+  }
+
+  .blog-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h2,
+  .section-title h2{
+    font-size:42px;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero{
+    min-height:auto;
+    padding:120px 0 80px;
+  }
+
+  .logo img{
+    width:220px;
+    height:120px;
+  }
+
+  .hero h2{
+    font-size:34px;
+  }
+
+  .hero p{
+    font-size:15px;
+  }
+
+  .section-title h2{
+    font-size:32px;
+  }
+
+  .blog-card img{
+    height:220px;
+  }
+
+  .article-header img{
+    height:260px;
+  }
+
+  .article-overlay{
+    padding:30px;
+  }
+
+  .article-overlay h1{
+    font-size:28px;
+  }
+
+  .article-body p{
+    font-size:16px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="container navbar">
+
+    <div class="logo">
+      <img src="images/logo.png" alt="logo">
+    </div>
+
+    <nav>
+
+      <ul>
+
+        <li><a href="index.html">الرئيسية</a></li>
+
+        <li><a href="about.html">عن المؤسسة</a></li>
+
+        <li><a href="services.html">خدماتنا</a></li>
+
+        <li><a href="projects.html">مشاريعنا</a></li>
+
+        <li><a href="products.html">المنتجات</a></li>
+
+        <li><a href="blog.html" class="active">المدونة</a></li>
+
+      </ul>
+
+    </nav>
+
+    <a href="contact.html" class="contact-btn">
+      تواصل معنا
+    </a>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <h2>
+        <span>مدونة الشاكرين</span><br>
+        أحدث الأخبار والمقالات
+      </h2>
+
+      <p>
+        تابع أحدث المقالات والنصائح والتقنيات الحديثة
+        في عالم المصاعد والصيانة والتحديث وأنظمة الأمان.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="blog">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span>أحدث المقالات</span>
+
+      <h2>
+        مقالات يتم تحديثها تلقائيًا
+      </h2>
+
+    </div>
+
+    <div class="blog-grid" id="blogGrid"></div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container">
+    جميع الحقوق محفوظة © الشاكرين للمصاعد 2026
+  </div>
+
+</footer>
+
+<!-- صفحة المقال -->
+
+<div class="article-page" id="articlePage">
+
+  <button class="close-article" onclick="closeArticle()">
+    ✕
+  </button>
+
+  <div class="article-header">
+
+    <img id="articleImage" src="" alt="article">
+
+    <div class="article-overlay">
+
+      <h1 id="articleTitle"></h1>
+
+    </div>
+
+  </div>
+
+  <div class="article-body">
+
+    <p id="articleContent"></p>
+
+  </div>
+
+</div>
+
+<script>
+
+const articles = [
+
+{
+  title:"أهمية الصيانة الدورية للمصاعد",
+  date:"10 يناير 2026",
+  image:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+  description:"تعرف على أهمية الصيانة الدورية في الحفاظ على سلامة المصاعد وكفاءتها التشغيلية."
+},
+
+{
+  title:"أحدث تقنيات المصاعد الذكية",
+  date:"18 فبراير 2026",
+  image:"https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1200&auto=format&fit=crop",
+  description:"استكشف أحدث الأنظمة الذكية المستخدمة في المصاعد الحديثة حول العالم."
+},
+
+{
+  title:"كيف تختار المصعد المناسب؟",
+  date:"25 مارس 2026",
+  image:"https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop",
+  description:"دليل شامل يساعدك في اختيار المصعد المناسب لمشروعك السكني أو التجاري."
+}
+
+];
+
+const blogGrid = document.getElementById("blogGrid");
+
+function renderArticles(){
+
+  blogGrid.innerHTML = "";
+
+  articles.forEach(article => {
+
+    blogGrid.innerHTML += `
+
+    <div class="blog-card">
+
+      <img src="${article.image}" alt="blog">
+
+      <div class="blog-content">
+
+        <div class="blog-date">
+          ${article.date}
+        </div>
+
+        <h3>
+          ${article.title}
+        </h3>
+
+        <p>
+          ${article.description}
+        </p>
+
+        <a class="read-more"
+        onclick="openArticle(
+        '${article.title}',
+        '${article.image}',
+        '${article.description}'
+        )">
+
+          اقرأ المزيد ←
+
+        </a>
+
+      </div>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+renderArticles();
+
+setInterval(() => {
+
+  const randomTitles = [
+
+    "أفضل طرق تحسين أمان المصاعد",
+    "تقنيات المصاعد الحديثة",
+    "فوائد تحديث المصاعد القديمة",
+    "أنظمة المصاعد الذكية",
+    "أهمية الفحص الدوري",
+    "كيفية اختيار المصعد المناسب"
+
+  ];
+
+  const randomDescriptions = [
+
+    "تعرف على أحدث الحلول والتقنيات المستخدمة في عالم المصاعد.",
+    "مقال احترافي يساعدك على فهم أنظمة المصاعد الحديثة.",
+    "أفضل النصائح للحفاظ على سلامة وكفاءة المصاعد.",
+    "حلول وتقنيات جديدة في مجال المصاعد الذكية."
+
+  ];
+
+  const randomImages = [
+
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+
+    "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1200&auto=format&fit=crop",
+
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop"
+
+  ];
+
+  articles.unshift({
+
+    title:randomTitles[Math.floor(Math.random()*randomTitles.length)],
+
+    date:new Date().toLocaleDateString('ar-EG'),
+
+    image:randomImages[Math.floor(Math.random()*randomImages.length)],
+
+    description:randomDescriptions[Math.floor(Math.random()*randomDescriptions.length)]
+
+  });
+
+  if(articles.length > 9){
+    articles.pop();
+  }
+
+  renderArticles();
+
+},10000);
+
+function openArticle(title,image,description){
+
+  document.getElementById("articleTitle").innerHTML = title;
+
+  document.getElementById("articleImage").src = image;
+
+  document.getElementById("articleContent").innerHTML = `
+
+  ${description}
+
+  <br><br>
+
+  تعتبر المصاعد من أهم الأنظمة الحديثة المستخدمة في المباني
+  السكنية والتجارية، حيث تساهم بشكل كبير في تسهيل الحركة
+  والتنقل بين الطوابق المختلفة بأمان وسرعة عالية.
+
+  <br><br>
+
+  إن الصيانة الدورية للمصاعد تلعب دورًا مهمًا في الحفاظ
+  على الأداء والكفاءة التشغيلية وتقليل الأعطال المفاجئة،
+  كما تساعد على إطالة عمر المصعد وتحسين مستوى الأمان.
+
+  <br><br>
+
+  تعتمد المصاعد الحديثة على أنظمة ذكية وتقنيات متطورة
+  توفر راحة أكبر للمستخدمين مع تقليل استهلاك الطاقة
+  وتحسين سرعة الاستجابة أثناء التشغيل.
+
+  <br><br>
+
+  كما أن استخدام قطع الغيار الأصلية والتحديث المستمر
+  للأنظمة يضمن أفضل أداء ممكن ويقلل من تكاليف الصيانة
+  المستقبلية ويحافظ على جودة التشغيل.
+
+  <br><br>
+
+  الشاكرين للمصاعد تقدم حلولاً متكاملة في مجال
+  الصيانة والتركيب والتحديث وفق أعلى معايير الجودة
+  والاحترافية الحديثة.
+
+  `;
+
+  document.getElementById("articlePage").style.display = "block";
+
+  document.body.style.overflow = "hidden";
+
+}
+
+function closeArticle(){
+
+  document.getElementById("articlePage").style.display = "none";
+
+  document.body.style.overflow = "auto";
+
+}
+
+</script>
+
+</body>
+</html>
