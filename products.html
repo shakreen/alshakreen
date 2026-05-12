@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>المنتجات | الشاكرين للمصاعد</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Cairo',sans-serif;
+    }
+
+    body{
+      background:#020202;
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:92%;
+      margin:auto;
+    }
+
+    header{
+      width:100%;
+      background:rgba(0,0,0,.98);
+      border-bottom:1px solid rgba(212,164,74,.35);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 0;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-direction:column;
+    }
+
+    .logo img{
+      width:300px;
+      height:150px;
+      object-fit:contain;
+    }
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:40px;
+    }
+
+    nav ul li a{
+      color:#fff;
+      font-size:18px;
+      font-weight:600;
+      transition:.3s;
+      position:relative;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active{
+      color:#d4a44a;
+    }
+
+    nav ul li a.active::after{
+      content:'';
+      position:absolute;
+      bottom:-12px;
+      right:0;
+      width:100%;
+      height:2px;
+      background:#d4a44a;
+      border-radius:10px;
+    }
+
+    .contact-btn{
+      border:1px solid #2a2a2a;
+      color:#d4a44a;
+      padding:12px 28px;
+      border-radius:14px;
+      font-size:17px;
+      transition:.3s;
+    }
+
+    .contact-btn:hover{
+      background:#d4a44a;
+      color:#000;
+    }
+
+    .hero{
+      min-height:80vh;
+      position:relative;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+
+      background:
+      linear-gradient(to left, rgba(0,0,0,.95) 35%, rgba(0,0,0,.65)),
+      url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1800&auto=format&fit=crop')
+      center/cover no-repeat;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+      radial-gradient(circle at center,
+      rgba(212,164,74,.08),
+      transparent 60%);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      width:50%;
+      margin-left:auto;
+      text-align:right;
+      padding:60px 120px 60px 0;
+    }
+
+    .hero h2{
+      font-size:52px;
+      line-height:1.4;
+      margin-bottom:25px;
+      font-weight:800;
+    }
+
+    .hero h2 span{
+      color:#d4a44a;
+    }
+
+    .hero p{
+      color:#ddd;
+      font-size:14px;
+      line-height:2;
+      max-width:700px;
+      margin-bottom:40px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      background:rgba(8,8,8,.96);
+      color:#fff;
+      border:1px solid rgba(212,164,74,.22);
+      min-width:220px;
+      height:58px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      border-radius:24px;
+      font-size:14px;
+      font-weight:700;
+      transition:.3s;
+      backdrop-filter:blur(6px);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover{
+      background:#d4a44a;
+      color:#000;
+      border-color:#d4a44a;
+      transform:translateY(-2px);
+    }
+
+    .products{
+      padding:120px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title span{
+      color:#d4a44a;
+      font-size:24px;
+      font-weight:700;
+    }
+
+    .section-title h2{
+      font-size:42px;
+      margin-top:10px;
+      font-weight:800;
+    }
+
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px;
+    }
+
+    .product-card{
+      background:linear-gradient(
+      180deg,
+      rgba(18,18,18,1),
+      rgba(8,8,8,1));
+
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid rgba(212,164,74,.18);
+      transition:.4s;
+    }
+
+    .product-card:hover{
+      transform:translateY(-10px);
+      border-color:#d4a44a;
+      box-shadow:0 20px 50px rgba(212,164,74,.15);
+    }
+
+    .product-card img{
+      width:100%;
+      height:280px;
+      object-fit:cover;
+    }
+
+    .product-content{
+      padding:30px;
+    }
+
+    .product-content h3{
+      color:#d4a44a;
+      font-size:26px;
+      margin-bottom:15px;
+    }
+
+    .product-content p{
+      color:#ccc;
+      line-height:2;
+      font-size:14px;
+      margin-bottom:20px;
+    }
+
+    .product-info{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-top:1px solid rgba(212,164,74,.15);
+      padding-top:18px;
+      color:#999;
+      font-size:13px;
+    }
+
+    .brands{
+      padding-bottom:120px;
+    }
+
+    .brands-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:25px;
+    }
+
+    .brand-box{
+      background:#080808;
+      border:1px solid rgba(212,164,74,.15);
+      border-radius:24px;
+      padding:35px 25px;
+      text-align:center;
+      transition:.3s;
+    }
+
+    .brand-box:hover{
+      transform:translateY(-8px);
+      border-color:#d4a44a;
+    }
+
+    .brand-box h3{
+      font-size:24px;
+      color:#d4a44a;
+      margin-top:15px;
+    }
+
+    .brand-box p{
+      color:#ccc;
+      margin-top:10px;
+      font-size:13px;
+      line-height:1.9;
+    }
+
+    footer{
+      border-top:1px solid rgba(212,164,74,.2);
+      padding:40px 0;
+      text-align:center;
+      color:#999;
+      background:#050505;
+    }
+
+    @media(max-width:1200px){
+
+      .hero-content{
+        width:65%;
+      }
+
+      .hero h2{
+        font-size:46px;
+      }
+
+    }
+
+    @media(max-width:992px){
+
+      nav{
+        display:none;
+      }
+
+      .hero-content{
+        width:100%;
+        padding:60px 0;
+      }
+
+      .products-grid,
+      .brands-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h2,
+      .section-title h2{
+        font-size:42px;
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .hero{
+        min-height:auto;
+        padding:120px 0 80px;
+      }
+
+      .logo img{
+        width:220px;
+        height:120px;
+      }
+
+      .hero h2{
+        font-size:34px;
+      }
+
+      .hero p{
+        font-size:15px;
+      }
+
+      .hero-buttons{
+        flex-direction:column;
+      }
+
+      .btn-primary,
+      .btn-secondary{
+        width:100%;
+      }
+
+      .section-title h2{
+        font-size:32px;
+      }
+
+      .product-card img{
+        height:220px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="container navbar">
+
+    <div class="logo">
+      <img src="images/logo.png" alt="logo">
+    </div>
+
+    <nav>
+
+      <ul>
+
+        <li>
+          <a href="index.html">الرئيسية</a>
+        </li>
+
+        <li>
+          <a href="about.html">عن المؤسسة</a>
+        </li>
+
+        <li>
+          <a href="services.html">خدماتنا</a>
+        </li>
+
+        <li>
+          <a href="projects.html">مشاريعنا</a>
+        </li>
+
+        <li>
+          <a href="products.html" class="active">المنتجات</a>
+        </li>
+
+        <li>
+          <a href="blog.html">المدونة</a>
+        </li>
+
+      </ul>
+
+    </nav>
+
+    <a href="contact.html" class="contact-btn">
+      تواصل معنا
+    </a>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <h2>
+        <span>أفضل منتجات المصاعد</span><br>
+        بأحدث التقنيات العالمية
+      </h2>
+
+      <p>
+        نوفر مجموعة متكاملة من المصاعد والأنظمة الحديثة
+        المصممة بأعلى معايير الجودة والأمان والكفاءة التشغيلية.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="#" class="btn-primary">
+          استعرض المنتجات ←
+        </a>
+
+        <a href="#" class="btn-secondary">
+          تواصل معنا ←
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="products">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span>منتجاتنا</span>
+
+      <h2>
+        حلول متطورة لجميع أنواع المباني
+      </h2>
+
+    </div>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>المصاعد السكنية</h3>
+
+          <p>
+            مصاعد منزلية بتصاميم عصرية
+            توفر الراحة والأمان للمنازل والفلل.
+          </p>
+
+          <div class="product-info">
+
+            <span>أنظمة حديثة</span>
+
+            <span>ضمان شامل</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>المصاعد التجارية</h3>
+
+          <p>
+            حلول احترافية للمجمعات التجارية
+            والمكاتب والفنادق بأعلى كفاءة.
+          </p>
+
+          <div class="product-info">
+
+            <span>أداء عالي</span>
+
+            <span>تقنيات ذكية</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>المصاعد البانورامية</h3>
+
+          <p>
+            تصاميم زجاجية فاخرة
+            تضيف لمسة عصرية وجمالية للمباني.
+          </p>
+
+          <div class="product-info">
+
+            <span>تصميم فاخر</span>
+
+            <span>جودة عالية</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>المصاعد الطبية</h3>
+
+          <p>
+            أنظمة متطورة للمستشفيات
+            والمراكز الطبية بمعايير أمان دقيقة.
+          </p>
+
+          <div class="product-info">
+
+            <span>سلامة عالية</span>
+
+            <span>تشغيل هادئ</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>السلالم الكهربائية</h3>
+
+          <p>
+            سلالم كهربائية حديثة
+            مناسبة للمولات والمراكز التجارية الكبرى.
+          </p>
+
+          <div class="product-info">
+
+            <span>كفاءة عالية</span>
+
+            <span>صيانة سهلة</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>أنظمة التحكم</h3>
+
+          <p>
+            أنظمة ذكية لإدارة وتشغيل المصاعد
+            بكفاءة وتقنيات متطورة.
+          </p>
+
+          <div class="product-info">
+
+            <span>تحكم ذكي</span>
+
+            <span>تقنيات حديثة</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="brands">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span>مميزات منتجاتنا</span>
+
+      <h2>
+        جودة وتقنيات عالمية
+      </h2>
+
+    </div>
+
+    <div class="brands-grid">
+
+      <div class="brand-box">
+
+        <div style="font-size:42px;">⚡</div>
+
+        <h3>أداء عالي</h3>
+
+        <p>
+          أنظمة مصاعد حديثة
+          تعمل بكفاءة واستقرار طويل الأمد.
+        </p>
+
+      </div>
+
+      <div class="brand-box">
+
+        <div style="font-size:42px;">🛡️</div>
+
+        <h3>أمان متكامل</h3>
+
+        <p>
+          جميع المنتجات مطابقة
+          لمعايير السلامة العالمية الحديثة.
+        </p>
+
+      </div>
+
+      <div class="brand-box">
+
+        <div style="font-size:42px;">🌍</div>
+
+        <h3>تقنيات عالمية</h3>
+
+        <p>
+          أحدث التقنيات والأنظمة
+          المستخدمة في عالم المصاعد.
+        </p>
+
+      </div>
+
+      <div class="brand-box">
+
+        <div style="font-size:42px;">🏆</div>
+
+        <h3>جودة مضمونة</h3>
+
+        <p>
+          منتجات عالية الجودة
+          مع ضمان وخدمة ما بعد البيع.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container">
+    جميع الحقوق محفوظة © الشاكرين للمصاعد 2026
+  </div>
+
+</footer>
+
+</body>
+</html>
