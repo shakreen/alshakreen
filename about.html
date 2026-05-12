@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>عن المؤسسة | الشاكرين للمصاعد</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -16,15 +19,26 @@
       font-family:'Cairo',sans-serif;
     }
 
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       background:#020202;
       color:#fff;
       overflow-x:hidden;
+      -webkit-overflow-scrolling:touch;
     }
 
     a{
       text-decoration:none;
       color:inherit;
+      touch-action:manipulation;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
     }
 
     .container{
@@ -39,7 +53,8 @@
       border-bottom:1px solid rgba(212,164,74,.35);
       position:sticky;
       top:0;
-      z-index:999;
+      z-index:9999;
+      backdrop-filter:blur(10px);
     }
 
     .navbar{
@@ -47,13 +62,13 @@
       align-items:center;
       justify-content:space-between;
       padding:18px 0;
+      gap:20px;
     }
 
     .logo{
       display:flex;
       align-items:center;
-      gap:18px;
-      flex-direction:row-reverse;
+      flex-shrink:0;
     }
 
     .logo img{
@@ -62,25 +77,22 @@
       object-fit:contain;
     }
 
-    .logo-text h1{
-      font-size:34px;
-      color:#d4a44a;
-      font-weight:800;
-      line-height:1;
-    }
-
-    .logo-text span{
-      color:#d4a44a;
-      font-size:18px;
-      letter-spacing:2px;
-      font-weight: 800;
+    nav{
+      transition:.4s ease;
     }
 
     nav ul{
       list-style:none;
       display:flex;
-      gap:40px;
       align-items:center;
+      gap:40px;
+      overflow-x:auto;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    nav ul::-webkit-scrollbar{
+      display:none;
     }
 
     nav ul li a{
@@ -88,7 +100,8 @@
       font-size:18px;
       font-weight:600;
       transition:.3s;
-      position: relative;
+      position:relative;
+      white-space:nowrap;
     }
 
     nav ul li a:hover,
@@ -96,15 +109,15 @@
       color:#d4a44a;
     }
 
-    nav ul li a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      right: 0;
-      width: 100%;
-      height: 2px;
-      background: #d4a44a;
-      border-radius: 10px;
+    nav ul li a.active::after{
+      content:'';
+      position:absolute;
+      bottom:-10px;
+      right:0;
+      width:100%;
+      height:2px;
+      background:#d4a44a;
+      border-radius:10px;
     }
 
     .contact-btn{
@@ -113,6 +126,7 @@
       border-radius:16px;
       color:#d4a44a;
       transition:.3s;
+      white-space:nowrap;
     }
 
     .contact-btn:hover{
@@ -120,19 +134,34 @@
       color:#000;
     }
 
+    .menu-toggle{
+      display:none;
+      font-size:34px;
+      color:#d4a44a;
+      cursor:pointer;
+      user-select:none;
+    }
+
     .hero{
       padding:140px 0 90px;
+
       background:
       linear-gradient(to left, rgba(0,0,0,.92), rgba(0,0,0,.7)),
-      url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+      url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1800&auto=format&fit=crop')
+      center/cover no-repeat;
+
       position:relative;
+      overflow:hidden;
     }
 
     .hero::before{
       content:'';
       position:absolute;
       inset:0;
-      background:radial-gradient(circle at center, rgba(212,164,74,.08), transparent 60%);
+      background:
+      radial-gradient(circle at center,
+      rgba(212,164,74,.08),
+      transparent 60%);
     }
 
     .hero-content{
@@ -166,13 +195,18 @@
 
     .about-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
       gap:40px;
       align-items:center;
     }
 
     .about-card{
-      background:linear-gradient(180deg, rgba(18,18,18,1), rgba(8,8,8,1));
+      background:
+      linear-gradient(
+      180deg,
+      rgba(18,18,18,1),
+      rgba(8,8,8,1));
+
       border:1px solid rgba(212,164,74,.18);
       border-radius:28px;
       padding:45px;
@@ -221,17 +255,17 @@
 
     .values-grid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(280px,1fr));
+
       gap:30px;
     }
 
-    /* الصف الثاني */
-
     .values-grid.second-row{
-      grid-template-columns:repeat(2,1fr);
       width:68%;
       margin:40px auto 0;
-    }   
+    }
 
     .value-card{
       background:#080808;
@@ -283,15 +317,53 @@
       box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
 
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media(max-width:1200px){
+
+      .values-grid.second-row{
+        width:85%;
+      }
+
+    }
+
     @media(max-width:992px){
 
+      .menu-toggle{
+        display:block;
+      }
+
+      .navbar{
+        flex-wrap:wrap;
+        justify-content:space-between;
+      }
+
       nav{
+        width:100%;
+        max-height:0;
+        overflow:hidden;
+      }
+
+      nav.active{
+        max-height:500px;
+      }
+
+      nav ul{
+        flex-direction:column;
+        gap:20px;
+        width:100%;
+        text-align:center;
+        padding-top:20px;
+      }
+
+      .contact-btn{
         display:none;
       }
 
-      .about-grid,
-      .values-grid{
-        grid-template-columns:1fr;
+      .hero{
+        padding:120px 0 80px;
       }
 
       .hero h2{
@@ -302,9 +374,22 @@
         height:380px;
       }
 
+      .values-grid.second-row{
+        width:100%;
+      }
+
     }
 
     @media(max-width:768px){
+
+      .container{
+        width:94%;
+      }
+
+      .logo img{
+        width:190px;
+        height:100px;
+      }
 
       .hero{
         padding:110px 0 70px;
@@ -326,45 +411,106 @@
         font-size:28px;
       }
 
+      .section-title span{
+        font-size:20px;
+      }
+
       .section-title h2{
         font-size:32px;
+      }
+
+      .about-image img{
+        height:260px;
+      }
+
+      .value-card{
+        padding:28px;
+      }
+
+      .value-card h3{
+        font-size:22px;
+      }
+
+      .whatsapp-btn{
+        width:55px;
+        height:55px;
+        font-size:24px;
+        left:15px;
+        bottom:15px;
+      }
+
+    }
+
+    @media(max-width:480px){
+
+      .hero h2{
+        font-size:28px;
+      }
+
+      .section-title h2{
+        font-size:26px;
+      }
+
+      .hero p,
+      .about-card p,
+      .value-card p{
+        font-size:14px;
       }
 
     }
 
   </style>
+
 </head>
+
 <body>
 
 <header>
+
   <div class="container navbar">
 
-    <div class="logo">     
+    <div class="logo">
       <img src="images/logo.png" alt="logo">
     </div>
 
-    <nav>
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+
+    <nav id="nav-menu">
+
       <ul>
+
         <li><a href="index.html">الرئيسية</a></li>
+
         <li><a href="about.html" class="active">عن المؤسسة</a></li>
+
         <li><a href="services.html">خدماتنا</a></li>
+
         <li><a href="projects.html">مشاريعنا</a></li>
+
         <li><a href="products.html">المنتجات</a></li>
+
         <li><a href="blog.html">المدونة</a></li>
+
       </ul>
+
     </nav>
-   
+
     <a href="contact.html" class="contact-btn">
       تواصل معنا
     </a>
 
   </div>
+
 </header>
 
 <section class="hero">
+
   <div class="container">
 
     <div class="hero-content">
+
       <span>عن المؤسسة</span>
 
       <h2>
@@ -373,66 +519,106 @@
       </h2>
 
       <p>
-        نسعى في الشاكرين للمصاعد إلى تقديم حلول متكاملة وعصرية في مجال المصاعد، تجمع بين الجودة والأمان والتقنيات الحديثة، مع فريق متخصص وخبرة واسعة في تنفيذ وصيانة مختلف أنواع المصاعد للمشاريع السكنية والتجارية.
+        نسعى في الشاكرين للمصاعد إلى تقديم حلول متكاملة وعصرية في مجال المصاعد،
+        تجمع بين الجودة والأمان والتقنيات الحديثة،
+        مع فريق متخصص وخبرة واسعة في تنفيذ وصيانة مختلف أنواع المصاعد
+        للمشاريع السكنية والتجارية.
       </p>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="about-section">
+
   <div class="container">
 
     <div class="about-grid">
 
       <div class="about-card">
+
         <h3>من نحن</h3>
 
         <p>
-          نحن مؤسسة متخصصة في تركيب وصيانة وتحديث المصاعد، نقدم خدمات احترافية وفق أعلى المعايير العالمية، ونعمل على توفير حلول متطورة تلبي احتياجات العملاء بكفاءة عالية وجودة استثنائية.
+
+          نحن مؤسسة متخصصة في تركيب وصيانة وتحديث المصاعد،
+          نقدم خدمات احترافية وفق أعلى المعايير العالمية،
+          ونعمل على توفير حلول متطورة تلبي احتياجات العملاء
+          بكفاءة عالية وجودة استثنائية.
+
           <br><br>
-          نؤمن بأن الجودة والالتزام هما أساس النجاح، لذلك نحرص على استخدام أحدث التقنيات وأفضل قطع الغيار الأصلية لضمان أعلى مستويات الأمان والأداء.
+
+          نؤمن بأن الجودة والالتزام هما أساس النجاح،
+          لذلك نحرص على استخدام أحدث التقنيات
+          وأفضل قطع الغيار الأصلية لضمان أعلى مستويات الأمان والأداء.
+
         </p>
+
       </div>
 
       <div class="about-image">
-        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1400&auto=format&fit=crop" alt="about">
+
+        <img
+        src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1400&auto=format&fit=crop"
+        alt="about">
+
       </div>
 
     </div>
 
   </div>
+
 </section>
 
 <section class="values">
+
   <div class="container">
 
     <div class="section-title">
+
       <span>قيمنا</span>
-      <h2>ما الذي يميزنا؟</h2>
+
+      <h2>
+        ما الذي يميزنا؟
+      </h2>
+
     </div>
 
     <div class="values-grid">
 
       <div class="value-card">
+
         <h3>الجودة</h3>
+
         <p>
-          نلتزم بأعلى معايير الجودة في جميع أعمال التركيب والصيانة والتحديث.
+          نلتزم بأعلى معايير الجودة
+          في جميع أعمال التركيب والصيانة والتحديث.
         </p>
+
       </div>
 
       <div class="value-card">
+
         <h3>الأمان</h3>
+
         <p>
-          نطبق أحدث معايير السلامة لضمان تشغيل آمن وموثوق لجميع المصاعد.
+          نطبق أحدث معايير السلامة
+          لضمان تشغيل آمن وموثوق لجميع المصاعد.
         </p>
+
       </div>
 
       <div class="value-card">
+
         <h3>الاحترافية</h3>
+
         <p>
-          فريق متخصص بخبرة طويلة يقدم خدمات دقيقة وسريعة باحترافية عالية.
+          فريق متخصص بخبرة طويلة
+          يقدم خدمات دقيقة وسريعة باحترافية عالية.
         </p>
+
       </div>
 
     </div>
@@ -440,35 +626,63 @@
     <div class="values-grid second-row">
 
       <div class="value-card">
+
         <h3>الخبرات</h3>
+
         <p>
           نمتلك خبرة طويلة في مجال
           المصاعد والصيانة والتحديث.
         </p>
+
       </div>
 
       <div class="value-card">
+
         <h3>الالتزام بالوقت</h3>
+
         <p>
           نحرص دائمًا على تنفيذ الأعمال
           وتسليم المشاريع في الوقت المحدد.
         </p>
+
       </div>
 
     </div>
-  
+
+  </div>
+
 </section>
 
-<a href="https://wa.me/966500000000" class="whatsapp-btn" target="_blank">
+<a href="https://wa.me/966500000000"
+class="whatsapp-btn"
+target="_blank">
 💬
 </a>
 
 <footer>
+
   <div class="container">
     جميع الحقوق محفوظة © الشاكرين للمصاعد 2026
   </div>
+
 </footer>
 
+<script>
+
+  const menuToggle =
+  document.getElementById("menu-toggle");
+
+  const navMenu =
+  document.getElementById("nav-menu");
+
+  menuToggle.onclick = () => {
+
+    navMenu.classList.toggle("active");
+
+  };
+
+</script>
+
 </body>
+
 </html>
-```
